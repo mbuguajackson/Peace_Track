@@ -35,7 +35,7 @@ conflict_data_mapping = {
     'geom': 'MULTIPOINT',
 }
 
-geojson_file = os.path.join(os.path.dirname(__file__), 'data/conflict_data.geojson')
+geojson_file = os.path.join(os.path.dirname(__file__), 'data/cattle_conflicts.geojson')
 
 conflict_data = LayerMapping(
     conflict_data, #model name
