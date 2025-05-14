@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.gis.db import models
 
 # Create your models here.
+#conflict_data
 class conflict_data(models.Model):
     event_id_cnty = models.CharField(null=True, blank=True)
     event_date = models.CharField(null=True, blank=True)
@@ -33,3 +34,9 @@ class conflict_data(models.Model):
     tags = models.CharField(null=True, blank=True)
     timestamp = models.FloatField(null=True, blank=True)
     geom = models.MultiPointField(srid=4326)
+
+#level 0 boundaries
+class ssd_level_0(models.Model):
+    gid_0 = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    geom = models.MultiPolygonField(srid=4326)
