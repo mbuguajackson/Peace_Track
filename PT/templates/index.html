@@ -8,55 +8,69 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
   </head>
   <body>
     <!-- Header -->
     <header class="header">
-      <h1>South Sudan Conflict Dashboard</h1>
+      <h1>Peace Track Dashboard</h1>
       <div class="filters">
-        <select>
-          <option>2020-2024</option>
+        <select id="yearFilter">
+          <option value="all">2020–2024</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
         </select>
-        <select>
-          <option>All Conflict Types</option>
-        </select>
-        <label><input type="checkbox" />🐄 Cattle-related only</label>
+
+        <label>🐄 Cattle-related only</label>
       </div>
     </header>
 
     <!-- KPI Section -->
     <section class="kpi-section">
-      <div class="kpi-card">Total Events</div>
-      <div class="kpi-card">Fatalities</div>
-      <div class="kpi-card">% Cattle-Related</div>
-      <div class="kpi-card">Top Type</div>
+      <div class="kpi-card">
+        Total Events: <span id="total-events-count">0</span>
+      </div>
+      <div class="kpi-card">
+        Total Fatalities: <span id="total-fatalities-count">0</span>
+      </div>
     </section>
 
     <!-- Map Section -->
-<!-- Map + Text Analysis Layout -->
-<div class="map-text-container">
-    <!-- Text Analysis Section -->
-    <section class="text-section">
+    <!-- Map + Text Analysis Layout -->
+    <div class="map-text-container">
+      <!-- Text Analysis Section -->
+      <section class="text-section">
         <h2>Conflict Insights</h2>
         <p>🧠 Conflict hotspots intensified in 2023 in northern regions.</p>
         <p>📈 Monthly trends show a surge during the dry season.</p>
         <p>🗺️ Most events are related to cattle raiding in rural border areas.</p>
-    </section>
+      </section>
 
-    <!-- Map Section -->
-    <section class="map-section">
-        <div id="map"> 
-   
+      <!-- Map Section -->
+      <section class="map-section">
+        <div id="map">
+          <script>
+            const conflictDataUrl = "{% url 'conflict_data_api' %}"
+            const level_1_url = "{% url 'state_boundaries_api' %}"
+          </script>
         </div>
-    </section>
-</div>
-
+      </section>
+    </div>
 
     <!-- Charts Section -->
     <section class="charts-section">
-      <div class="chart" id="trend-chart">[Trend Chart]</div>
-      <div class="chart" id="top-states-chart">[Top States Chart]</div>
+      <div class="chart" id="trend-chart">
+        <canvas id="eventChart" width="400" height="100"></canvas>
+      </div>
+      <div class="chart" id="top-states-chart">
+        <canvas id="topStatesChart" width="400" height="110"></canvas>
+      </div>
     </section>
 
     <!-- Footer -->
@@ -66,5 +80,11 @@
       <button>🔗 Share Link</button>
     </footer>
   </body>
-  <script src="{% static 'js/map.js'%}"></script>
+  <script src="{% static 'js/map.js' %}"></script>
+  <script src="{% static 'js/time_trend.js' %}"></script>
+  <script src="{% static 'js/states_rank.js' %}"></script>
+  <script src="{% static 'js/total_events.js' %}"></script>
+  <script src="{% static 'js/total_fatalities.js' %}"></script>
+  <script src="{% static 'js/top_state.js' %}"></script>
+  <script src="{% static 'js/download_data.js' %}"></script>
 </html>
